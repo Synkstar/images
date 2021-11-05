@@ -1,10 +1,12 @@
 #!/bin/bash
 sleep 5
 
-# Allow for the creation of coredumps
 ulimit -c unlimited
 
 cd /home/container
+
+# Make internal Docker IP address available to processes.
+export INTERNAL_IP=`ip route get 1 | awk '{print $NF;exit}'`
 
 if [ "${STEAM_USER}" == "" ]; then
     echo -e "steam user is not set.\n"
